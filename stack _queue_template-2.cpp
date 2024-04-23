@@ -10,7 +10,10 @@
 template<typename T> class Stack{
 std::vector<T> stack;
 public:
-
+int validPara(T par) {
+    //not done
+    std::cout << "Valid" << std::endl;
+}
 };
 
 // Add class Queue here
