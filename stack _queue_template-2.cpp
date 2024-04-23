@@ -7,7 +7,11 @@
 #include<vector>
 
 // Add class Stack here
+template<typename T> class Stack{
+std::vector<T> stack;
+public:
 
+};
 
 // Add class Queue here
 
