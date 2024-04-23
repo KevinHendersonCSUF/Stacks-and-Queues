@@ -1,4 +1,10 @@
+// Name: Kevin Henderson
+// CWID: 885395855
+// Git repository Link:
+// https://github.com/KevinHendersonCSUF/Stacks-and-Queues.git
+
 #include<iostream>
+#include<vector>
 
 // Add class Stack here
 
