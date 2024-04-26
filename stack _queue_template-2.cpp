@@ -8,36 +8,35 @@
 
 // Add class Stack here
 class Stack {
-std::vector<char> stack;
 public:
 void validPara(std::string par) {
+    std::vector<char> stack;
     for(int i = 0; i < par.length(); i++) {
         if(par[i] == '(' || par[i] == '{' || par[i] == '[' ) {
         stack.push_back(par[i]);
         }
-         if(par[i] == ')') {
-            if(stack[i-1] == '(') {
+         for(int r = stack.size(); r > 0; r--) {
+         if(par[i] == ')' && stack[r] == '(') {
                 stack.pop_back();
-            }
          }
-         if(par[i] == '}') {
-            if(stack[i-1] == '{') {
+         if(par[i] == '}' && stack[r] == '{') {
                 stack.pop_back();
-            }
+
          }
-         if(par[i] == ']' ) {
-             if(stack[i-1] == '[') {
+         if(par[i] == ']' && stack[r] == '[') {
                 stack.pop_back();
-            }
          }
-    } //FIND OUT WHY IT ONLY DELETES ONE PARANTHESIS BUT NOT THE REST
-    
-    for(int j = 0; j < stack.size(); j++) {
-        std::cout << stack[j] << " ";
+         }
+    //     for(int j = 0; j < stack.size(); j++) {
+    //     std::cout << stack[j] << " ";
+    // }
+    // std::cout << std::endl; //TO VISUALIZE THE STACK
     }
-    std::cout << std::endl; //TO VISUALIZE THE STACK
     
-    
+    // for(int j = 0; j < stack.size(); j++) {
+    //     std::cout << stack[j] << " ";
+    // }
+    // std::cout << std::endl; //TO VISUALIZE THE STACK
     if (stack.size() == 0) {
         std::cout << "Valid" << std::endl;
     }
@@ -46,10 +45,39 @@ void validPara(std::string par) {
     }
 }
 
-int indexError() {
+int indexError(std::string par) {
+    std::vector<char> stack;
+    int par_index = 0;
+    for(int i = 0; i < par.length(); i++) {
+        if(par[i] == '(' || par[i] == '{' || par[i] == '[' ) {
+        stack.push_back(par[i]);
+        }
+         for(int r = stack.size(); r > 0; r--) {
+         if(par[i] == ')' && stack[r] == '(') {
+                stack.pop_back();
+         }
+         if(par[i] == '}' && stack[r] == '{') {
+                stack.pop_back();
 
-return 0;
-}
+         }
+         if(par[i] == ']' && stack[r] == '[') {
+                stack.pop_back();
+         }
+         }
+         par_index++;
+    }
+    
+    
+     for(int j = 0; j < stack.size(); j++) {
+        std::cout << stack[j] << " ";
+    }
+    std::cout << std::endl; //TO VISUALIZE THE STACK
+    
+    if (stack.size() == 0) {
+        return 1;
+    }
+    return par_index;
+} // NO WHERE NEAR DONE!
 
 void minPara() {
 
@@ -75,17 +103,17 @@ void enqueue(std::string message) {
 // Remove comments before testing and do not change anything in main function
 int main(){
 Stack s1;
-s1.validPara("(([]))");
+// s1.validPara("(([]))");
 // s1.minPara("(([]))");
 // s1.scorePara("(([]))");
 // s1.validPara("(([])");
-// std::cout<<s1.indexError("(([))")<<std::endl;
+std::cout<<s1.indexError("(([))")<<std::endl;
 // s1.minPara("(([])");
 // s1.validPara("(([{}))");
-// std::cout<<s1.indexError("(([[}])")<<std::endl;
+std::cout<<s1.indexError("(([[}])")<<std::endl;
 // s1.minPara("(([{}))");
 // s1.scorePara("(([{}))");
-// std::cout<<s1.indexError("({}[]()[)")<<std::endl;
+std::cout<<s1.indexError("({}[]()[)")<<std::endl;
 // s1.validPara("(([))");
 // s1.minPara("(([))");
 // std::cout<<s1.indexError("[({)]")<<std::endl;
