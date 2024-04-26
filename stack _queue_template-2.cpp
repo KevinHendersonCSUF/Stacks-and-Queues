@@ -3,7 +3,9 @@
 // Git repository Link:
 // https://github.com/KevinHendersonCSUF/Stacks-and-Queues.git
 
+#include <algorithm>
 #include <iostream>
+#include <string>
 #include <vector>
 
 // Add class Stack here
@@ -37,10 +39,6 @@ public:
         }
       }
     }
-    // for (int j = 0; j < stack.size(); j++) {
-    //   std::cout << stack[j] << " ";
-    // }
-    // std::cout << std::endl; // TO VISUALIZE THE STACK
     if (stack.size() == 0 && loop_break == false) {
       std::cout << "Valid" << std::endl;
     }
@@ -50,7 +48,7 @@ public:
     if (stack.size() != 0 && loop_break == false) {
       std::cout << "invalid" << std::endl;
     }
-  } //WORKS, PASSES TEST CASES
+  } // WORKS, PASSES TEST CASES
 
   int indexError(std::string par) {
     std::vector<char> stack;
@@ -79,13 +77,9 @@ public:
         }
       }
     }
-    if(stack.size() != 0 && loop_break == false) {
+    if (stack.size() != 0 && loop_break == false) {
       return stack.size();
     }
-    // for (int j = 0; j < stack.size(); j++) {
-    //   std::cout << stack[j] << " ";
-    // }
-    // std::cout << std::endl; // TO VISUALIZE THE STACK
     return -1;
   } // WORKS, PASSES TEST CASES
 
@@ -118,10 +112,6 @@ public:
         }
       }
     }
-    // for (int j = 0; j < stack.size(); j++) {
-    //   std::cout << stack[j] << " ";
-    // }
-    // std::cout << std::endl; // TO VISUALIZE THE STACK
     if (loop_break == true) {
       std::cout << num << std::endl;
     }
@@ -131,7 +121,7 @@ public:
     if (loop_break == false && stack.size() != 0) {
       std::cout << stack.size() << std::endl;
     }
-  } //WORKS, PASSES TEST CASES
+  } // WORKS, PASSES TEST CASES
 
   void scorePara(std::string par) {
     std::vector<char> stack;
@@ -161,18 +151,68 @@ public:
       }
     }
     std::cout << score << std::endl;
-  }
+  } // WORKS PASSES TEST CASES.
 };
 
 // Add class Queue here
 class Queue {
 public:
-  void enqueue(std::string message) {}
-  void processMsg() {}
+  std::vector<std::string> queue;
+  void enqueue(std::string msg) {
+    int char_count = 0;
+    for (int i = 0; i < msg.length(); i++) {
+      if (char_count == 8) {
+        std::string string("");
+        string.push_back(msg[i - 8]);
+        string.push_back(msg[i - 7]);
+        string.push_back(msg[i - 6]);
+        string.push_back(msg[i - 5]);
+        string.push_back(msg[i - 4]);
+        string.push_back(msg[i - 3]);
+        string.push_back(msg[i - 2]);
+        string.push_back(msg[i - 1]);
+        string.push_back(msg[i]);
+        string.pop_back();
+        // std::cout << string << std::endl;
+        reverse(string.begin(), string.end());
+        queue.push_back(string);
+        char_count = 0;
+      }
+      char_count++;
+    }
+    // for(int j = 0; j < queue.size(); j++) {
+    //   std::cout << queue[j] << ", ";
+    // }
+    // std::cout << std::endl; // FOR VISUALIZING QUEUE.
+  } // FIND OUT A WAY TO PUSH_BACK CHAR INTO STRING WHEN CHAR_COUNT IS NOT 8
+    // WITHOUT MESSING UP THE IF STATEMENT!!!
+  void processMsg() {
+    std::string full("");
+    for (int i = 0; i < queue.size(); i++) {
+      if (full == "") {
+        reverse(queue[i].begin(), queue[i].end());
+        full = queue[i];
+        queue.erase(queue.begin());
+      }
+      reverse(queue[i].begin(), queue[i].end());
+      full = full + queue[i];
+    }
+    for (int j = 0; j < queue.size(); j++) {
+      queue.erase(queue.begin());
+      if (queue.size() == 1) {
+        queue.pop_back();
+      }
+    }
+    // for (int j = 0; j < queue.size(); j++) {
+    //   std::cout << queue[j] << ", ";
+    // }
+    // std::cout << std::endl; // FOR VISUALIZING QUEUE.
+    std::cout << full << std::endl;
+  } // DOES NOT COMPLETELY EMPTY QUEUE!!!
 };
 // Remove comments before testing and do not change anything in main function
 int main() {
-  Stack s1;
+// Stack s1;
 // s1.validPara("(([]))");
 // s1.minPara("(([]))");
 // s1.scorePara("(([]))");
