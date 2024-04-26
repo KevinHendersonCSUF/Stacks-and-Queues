@@ -3,117 +3,156 @@
 // Git repository Link:
 // https://github.com/KevinHendersonCSUF/Stacks-and-Queues.git
 
-#include<iostream>
-#include<vector>
+#include <iostream>
+#include <vector>
 
 // Add class Stack here
 class Stack {
 public:
-void validPara(std::string par) {
+  void validPara(std::string par) {
     std::vector<char> stack;
-    for(int i = 0; i < par.length(); i++) {
-        if(par[i] == '(' || par[i] == '{' || par[i] == '[' ) {
+    bool loop_break = false;
+    for (int i = 0; i < par.length(); i++) {
+      if (par[i] == '(' || par[i] == '{' || par[i] == '[') {
         stack.push_back(par[i]);
+      } else if (par[i] == ')' || par[i] == '}' || par[i] == ']') {
+        if (stack.size() == 0) {
+          loop_break = true;
+          std::cout << "invalid" << std::endl;
+          break;
         }
-         for(int r = stack.size(); r > 0; r--) {
-         if(par[i] == ')' && stack[r] == '(') {
-                stack.pop_back();
-         }
-         if(par[i] == '}' && stack[r] == '{') {
-                stack.pop_back();
-
-         }
-         if(par[i] == ']' && stack[r] == '[') {
-                stack.pop_back();
-         }
-         }
-    //     for(int j = 0; j < stack.size(); j++) {
-    //     std::cout << stack[j] << " ";
+        if (par[i] == ')' && stack.back() != '(') {
+          loop_break = true;
+          break;
+        }
+        if (par[i] == '}' && stack.back() != '{') {
+          loop_break = true;
+          break;
+        }
+        if (par[i] == ']' && stack.back() != '[') {
+          loop_break = true;
+          break;
+        } else {
+          stack.pop_back();
+        }
+      }
+    }
+    // for (int j = 0; j < stack.size(); j++) {
+    //   std::cout << stack[j] << " ";
     // }
-    // std::cout << std::endl; //TO VISUALIZE THE STACK
+    // std::cout << std::endl; // TO VISUALIZE THE STACK
+    if (stack.size() == 0 && loop_break == false) {
+      std::cout << "Valid" << std::endl;
     }
-    
-    // for(int j = 0; j < stack.size(); j++) {
-    //     std::cout << stack[j] << " ";
-    // }
-    // std::cout << std::endl; //TO VISUALIZE THE STACK
-    if (stack.size() == 0) {
-        std::cout << "Valid" << std::endl;
+    if (loop_break == true) {
+      std::cout << "invalid" << std::endl;
     }
-        if (stack.size() != 0) {
-        std::cout << "invalid" << std::endl;
+    if (stack.size() != 0 && loop_break == false) {
+      std::cout << "invalid" << std::endl;
     }
-}
+  } //WORKS, PASSES TEST CASES
 
-int indexError(std::string par) {
+  int indexError(std::string par) {
     std::vector<char> stack;
-    int par_index = 0;
-    for(int i = 0; i < par.length(); i++) {
-        if(par[i] == '(' || par[i] == '{' || par[i] == '[' ) {
+    bool loop_break = false;
+    for (int i = 0; i < par.length(); i++) {
+      if (par[i] == '(' || par[i] == '{' || par[i] == '[') {
         stack.push_back(par[i]);
+      } else if (par[i] == ')' || par[i] == '}' || par[i] == ']') {
+        if (stack.size() == 0) {
+          loop_break = true;
+          return i;
         }
-         for(int r = stack.size(); r > 0; r--) {
-         if(par[i] == ')' && stack[r] == '(') {
-                stack.pop_back();
-         }
-         if(par[i] == '}' && stack[r] == '{') {
-                stack.pop_back();
-
-         }
-         if(par[i] == ']' && stack[r] == '[') {
-                stack.pop_back();
-         }
-         }
-         par_index++;
+        if (par[i] == ')' && stack.back() != '(') {
+          loop_break = true;
+          return i;
+        }
+        if (par[i] == '}' && stack.back() != '{') {
+          loop_break = true;
+          return i;
+        }
+        if (par[i] == ']' && stack.back() != '[') {
+          loop_break = true;
+          return i;
+        } else {
+          stack.pop_back();
+        }
+      }
     }
-    
-    
-     for(int j = 0; j < stack.size(); j++) {
-        std::cout << stack[j] << " ";
+    // for (int j = 0; j < stack.size(); j++) {
+    //   std::cout << stack[j] << " ";
+    // }
+    // std::cout << std::endl; // TO VISUALIZE THE STACK
+    return -1;
+  } // WORKS, PASSES TEST CASES
+
+  void minPara(std::string par) {
+    std::vector<char> stack;
+    bool loop_break = false;
+    int num = 0;
+    for (int i = 0; i < par.length(); i++) {
+      if (par[i] == '(' || par[i] == '{' || par[i] == '[') {
+        stack.push_back(par[i]);
+      } else if (par[i] == ')' || par[i] == '}' || par[i] == ']') {
+        if (stack.size() == 0) {
+          loop_break = true;
+          std::cout << 2 << std::endl;
+          break;
+        }
+        if (par[i] == ')' && stack.back() != '(') {
+          loop_break = true;
+          num++;
+        }
+        if (par[i] == '}' && stack.back() != '{') {
+          loop_break = true;
+          num++;
+        }
+        if (par[i] == ']' && stack.back() != '[') {
+          loop_break = true;
+          num++;
+        } else {
+          stack.pop_back();
+        }
+      }
     }
-    std::cout << std::endl; //TO VISUALIZE THE STACK
-    
-    if (stack.size() == 0) {
-        return 1;
+    // for (int j = 0; j < stack.size(); j++) {
+    //   std::cout << stack[j] << " ";
+    // }
+    // std::cout << std::endl; // TO VISUALIZE THE STACK
+    if (loop_break == true) {
+      std::cout << num << std::endl;
     }
-    return par_index;
-} // NO WHERE NEAR DONE!
+    if (loop_break == false && stack.size() == 0) {
+      std::cout << num << std::endl;
+    }
+    if (loop_break == false && stack.size() != 0) {
+      std::cout << stack.size() << std::endl;
+    }
+  } //WORKS, PASSES TEST CASES
 
-void minPara() {
-
-}
-
-int scorePara() {
-
-return 0;
-}
-
+  int scorePara() { return 0; }
 };
 
 // Add class Queue here
 class Queue {
 public:
-void enqueue(std::string message) {
-
-}
- void processMsg() {
-
- }
+  void enqueue(std::string message) {}
+  void processMsg() {}
 };
 // Remove comments before testing and do not change anything in main function
-int main(){
-Stack s1;
+int main() {
+  Stack s1;
 // s1.validPara("(([]))");
 // s1.minPara("(([]))");
 // s1.scorePara("(([]))");
 // s1.validPara("(([])");
-std::cout<<s1.indexError("(([))")<<std::endl;
+// std::cout<<s1.indexError("(([))")<<std::endl;
 // s1.minPara("(([])");
 // s1.validPara("(([{}))");
-std::cout<<s1.indexError("(([[}])")<<std::endl;
+// std::cout<<s1.indexError("(([[}])")<<std::endl;
 // s1.minPara("(([{}))");
 // s1.scorePara("(([{}))");
-std::cout<<s1.indexError("({}[]()[)")<<std::endl;
+// std::cout<<s1.indexError("({}[]()[)")<<std::endl;
 // s1.validPara("(([))");
 // s1.minPara("(([))");
 // std::cout<<s1.indexError("[({)]")<<std::endl;
