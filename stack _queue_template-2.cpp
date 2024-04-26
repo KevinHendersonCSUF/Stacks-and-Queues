@@ -79,6 +79,9 @@ public:
         }
       }
     }
+    if(stack.size() != 0 && loop_break == false) {
+      return stack.size();
+    }
     // for (int j = 0; j < stack.size(); j++) {
     //   std::cout << stack[j] << " ";
     // }
@@ -130,7 +133,35 @@ public:
     }
   } //WORKS, PASSES TEST CASES
 
-  int scorePara() { return 0; }
+  void scorePara(std::string par) {
+    std::vector<char> stack;
+    bool loop_break = false;
+    int score = 0;
+    for (int i = 0; i < par.length(); i++) {
+      if (par[i] == '(' || par[i] == '{' || par[i] == '[') {
+        stack.push_back(par[i]);
+      } else if (par[i] == ')' || par[i] == '}' || par[i] == ']') {
+        if (stack.size() == 0) {
+          loop_break = true;
+          std::cout << 2 << std::endl;
+          break;
+        }
+        if (par[i] == ')' && stack.back() != '(') {
+          loop_break = true;
+        }
+        if (par[i] == '}' && stack.back() != '{') {
+          loop_break = true;
+        }
+        if (par[i] == ']' && stack.back() != '[') {
+          loop_break = true;
+        } else {
+          stack.pop_back();
+          score++;
+        }
+      }
+    }
+    std::cout << score << std::endl;
+  }
 };
 
 // Add class Queue here
