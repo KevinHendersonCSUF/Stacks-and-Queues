@@ -7,6 +7,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <queue>
 
 // Add class Stack here
 class Stack {
@@ -211,7 +212,7 @@ public:
       std::cout << queue[j] << " ";
     }
     std::cout << std::endl; // FOR VISUALIZING QUEUE.
-    } // WORKS NOW I THINK???
+    } // COMMENT CURRENT, REMAKE USING QUEUE TEMPLATE CLASS THAT WAS ADDED
 
   void processMsg() {
     std::string full("");
@@ -237,7 +238,7 @@ public:
     std::cout << std::endl; // FOR VISUALIZING QUEUE.
     std::cout << "queue size: " << queue.size() << std::endl;
     std::cout << full << std::endl;
-  } // ONLY PASSES TEST CASES 1, 2, AND 4.
+  } // ONLY PASSES TEST CASES 1, 2, AND 4. COMMENT CURRENT, REMAKE USING QUEUE TEMPLATE CLASS THAT WAS ADDED
 };
 // Remove comments before testing and do not change anything in main function
 int main() {
