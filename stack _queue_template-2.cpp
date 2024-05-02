@@ -159,33 +159,60 @@ class Queue {
 public:
   std::vector<std::string> queue;
   void enqueue(std::string msg) {
+    std::string temp = msg;
     int char_count = 0;
     for (int i = 0; i < msg.length(); i++) {
       if (char_count == 8) {
         std::string string("");
         string.push_back(msg[i - 8]);
+        temp.erase(temp.begin());
+                // std::cout << temp << std::endl;
         string.push_back(msg[i - 7]);
+        temp.erase(temp.begin());
+                // std::cout << temp << std::endl;
         string.push_back(msg[i - 6]);
+        temp.erase(temp.begin());
+                // std::cout << temp << std::endl;
         string.push_back(msg[i - 5]);
+        temp.erase(temp.begin());
+                // std::cout << temp << std::endl;
         string.push_back(msg[i - 4]);
+        temp.erase(temp.begin());
+                // std::cout << temp << std::endl;
         string.push_back(msg[i - 3]);
+        temp.erase(temp.begin());
+                // std::cout << temp << std::endl;
         string.push_back(msg[i - 2]);
+        temp.erase(temp.begin());
+                // std::cout << temp << std::endl;
         string.push_back(msg[i - 1]);
-        string.push_back(msg[i]);
-        string.pop_back();
+        temp.erase(temp.begin());
+                // std::cout << temp << std::endl;
+        // string.push_back(msg[i]);
+                // std::cout << string << std::endl;
+        // string.pop_back();
         // std::cout << string << std::endl;
         reverse(string.begin(), string.end());
         queue.push_back(string);
         char_count = 0;
+        // std::cout << temp.length() << std::endl;
       }
-      char_count++;
+          if(temp.length() != 0 && i == msg.length()-1) {
+          std::string string("");
+          for(int h = temp.length(); h >= 0; h--) {
+            string.push_back(temp[h]);
+          }
+            queue.push_back(string);
+            reverse(string.begin(), string.end());
+        }
+            char_count++;
+      }
+          for(int j = 0; j < queue.size(); j++) {
+      std::cout << queue[j] << " ";
     }
-    // for(int j = 0; j < queue.size(); j++) {
-    //   std::cout << queue[j] << ", ";
-    // }
-    // std::cout << std::endl; // FOR VISUALIZING QUEUE.
-  } // FIND OUT A WAY TO PUSH_BACK CHAR INTO STRING WHEN CHAR_COUNT IS NOT 8
-    // WITHOUT MESSING UP THE IF STATEMENT!!!
+    std::cout << std::endl; // FOR VISUALIZING QUEUE.
+    } // WORKS NOW I THINK???
+
   void processMsg() {
     std::string full("");
     for (int i = 0; i < queue.size(); i++) {
@@ -197,18 +224,20 @@ public:
       reverse(queue[i].begin(), queue[i].end());
       full = full + queue[i];
     }
-    for (int j = 0; j < queue.size(); j++) {
+    for (int j = 0; j <= queue.size(); j++) {
       queue.erase(queue.begin());
-      if (queue.size() == 1) {
+      if (queue.size() != 0) {
         queue.pop_back();
       }
     }
-    // for (int j = 0; j < queue.size(); j++) {
-    //   std::cout << queue[j] << ", ";
-    // }
-    // std::cout << std::endl; // FOR VISUALIZING QUEUE.
+    std::cout << "Remaining strings in queue: ";
+        for (int j = 0; j < queue.size(); j++) {
+      std::cout << queue[j] << " ";
+    }
+    std::cout << std::endl; // FOR VISUALIZING QUEUE.
+    std::cout << "queue size: " << queue.size() << std::endl;
     std::cout << full << std::endl;
-  } // DOES NOT COMPLETELY EMPTY QUEUE!!!
+  } // ONLY PASSES TEST CASES 1, 2, AND 4.
 };
 // Remove comments before testing and do not change anything in main function
 int main() {
