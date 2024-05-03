@@ -5,9 +5,10 @@
 
 #include <algorithm>
 #include <iostream>
+#include <queue>
 #include <string>
 #include <vector>
-#include <queue>
+
 
 // Add class Stack here
 class Stack {
@@ -49,7 +50,7 @@ public:
     if (stack.size() != 0 && loop_break == false) {
       std::cout << "invalid" << std::endl;
     }
-  } // WORKS, PASSES TEST CASES
+  }
 
   int indexError(std::string par) {
     std::vector<char> stack;
@@ -82,7 +83,7 @@ public:
       return stack.size();
     }
     return -1;
-  } // WORKS, PASSES TEST CASES
+  }
 
   void minPara(std::string par) {
     std::vector<char> stack;
@@ -122,7 +123,7 @@ public:
     if (loop_break == false && stack.size() != 0) {
       std::cout << stack.size() << std::endl;
     }
-  } // WORKS, PASSES TEST CASES
+  }
 
   void scorePara(std::string par) {
     std::vector<char> stack;
@@ -152,13 +153,13 @@ public:
       }
     }
     std::cout << score << std::endl;
-  } // WORKS PASSES TEST CASES.
+  }
 };
 
 // Add class Queue here
 class Queue {
 public:
-  std::vector<std::string> queue;
+  std::queue<std::string> queue;
   void enqueue(std::string msg) {
     std::string temp = msg;
     int char_count = 0;
@@ -167,131 +168,102 @@ public:
         std::string string("");
         string.push_back(msg[i - 8]);
         temp.erase(temp.begin());
-                // std::cout << temp << std::endl;
         string.push_back(msg[i - 7]);
         temp.erase(temp.begin());
-                // std::cout << temp << std::endl;
         string.push_back(msg[i - 6]);
         temp.erase(temp.begin());
-                // std::cout << temp << std::endl;
         string.push_back(msg[i - 5]);
         temp.erase(temp.begin());
-                // std::cout << temp << std::endl;
         string.push_back(msg[i - 4]);
         temp.erase(temp.begin());
-                // std::cout << temp << std::endl;
         string.push_back(msg[i - 3]);
         temp.erase(temp.begin());
-                // std::cout << temp << std::endl;
         string.push_back(msg[i - 2]);
         temp.erase(temp.begin());
-                // std::cout << temp << std::endl;
         string.push_back(msg[i - 1]);
         temp.erase(temp.begin());
-                // std::cout << temp << std::endl;
-        // string.push_back(msg[i]);
-                // std::cout << string << std::endl;
-        // string.pop_back();
-        // std::cout << string << std::endl;
         reverse(string.begin(), string.end());
-        queue.push_back(string);
+        queue.push(string);
         char_count = 0;
-        // std::cout << temp.length() << std::endl;
       }
-          if(temp.length() != 0 && i == msg.length()-1) {
-          std::string string("");
-          for(int h = temp.length(); h >= 0; h--) {
-            string.push_back(temp[h]);
-          }
-            queue.push_back(string);
-            reverse(string.begin(), string.end());
+      if (temp.length() != 0 && i == msg.length() - 1) {
+        std::string string("");
+        for (int h = temp.length(); h >= 0; h--) {
+          string.push_back(temp[h]);
         }
-            char_count++;
+        queue.push(string);
+        reverse(string.begin(), string.end());
       }
-          for(int j = 0; j < queue.size(); j++) {
-      std::cout << queue[j] << " ";
+      char_count++;
     }
-    std::cout << std::endl; // FOR VISUALIZING QUEUE.
-    } // COMMENT CURRENT, REMAKE USING QUEUE TEMPLATE CLASS THAT WAS ADDED
+  }
 
   void processMsg() {
     std::string full("");
-    for (int i = 0; i < queue.size(); i++) {
+    for (; !queue.empty(); queue.pop()) {
       if (full == "") {
-        reverse(queue[i].begin(), queue[i].end());
-        full = queue[i];
-        queue.erase(queue.begin());
-      }
-      reverse(queue[i].begin(), queue[i].end());
-      full = full + queue[i];
-    }
-    for (int j = 0; j <= queue.size(); j++) {
-      queue.erase(queue.begin());
-      if (queue.size() != 0) {
-        queue.pop_back();
+        reverse(queue.front().begin(), queue.front().end());
+        full = queue.front();
+      } else {
+        reverse(queue.front().begin(), queue.front().end());
+        full = full + queue.front();
       }
     }
-    std::cout << "Remaining strings in queue: ";
-        for (int j = 0; j < queue.size(); j++) {
-      std::cout << queue[j] << " ";
-    }
-    std::cout << std::endl; // FOR VISUALIZING QUEUE.
-    std::cout << "queue size: " << queue.size() << std::endl;
     std::cout << full << std::endl;
-  } // ONLY PASSES TEST CASES 1, 2, AND 4. COMMENT CURRENT, REMAKE USING QUEUE TEMPLATE CLASS THAT WAS ADDED
+  }
 };
 // Remove comments before testing and do not change anything in main function
 int main() {
-// Stack s1;
-// s1.validPara("(([]))");
-// s1.minPara("(([]))");
-// s1.scorePara("(([]))");
-// s1.validPara("(([])");
-// std::cout<<s1.indexError("(([))")<<std::endl;
-// s1.minPara("(([])");
-// s1.validPara("(([{}))");
-// std::cout<<s1.indexError("(([[}])")<<std::endl;
-// s1.minPara("(([{}))");
-// s1.scorePara("(([{}))");
-// std::cout<<s1.indexError("({}[]()[)")<<std::endl;
-// s1.validPara("(([))");
-// s1.minPara("(([))");
-// std::cout<<s1.indexError("[({)]")<<std::endl;
-// s1.validPara("(([{[{({})}]}]))");
-// s1.minPara("(([{[{({})}]}]))");
-// s1.scorePara("(([{[{({})}]}]))");
-// s1.validPara("(([[{[{({})}]))");
-// s1.validPara("(([[{[{({})}]}])]))");
-// s1.scorePara("(([[{[{({})}]}])]))");
-// std::cout<<s1.indexError("(([[{{({})]}])]))")<<std::endl;
-// s1.validPara("(())");
-// s1.validPara("(())");
-// s1.validPara("void function(){}");
-// s1.scorePara("void function(){}");
-// s1.validPara("void function(");
-// s1.minPara("void function(");
-// s1.validPara("void function(std::string expre){if(expre){return 1;}else{return 0;}}");
-// s1.scorePara("void function(std::string expre){if(expre){return 1;}else{return 0;}}");
-// s1.validPara("void function(std::string expre){if(expre){return 1;}else{return 0;}");
-// s1.validPara("void function(std::string expre){if(expre){return 1;else{return 0;");
-// s1.minPara("void function(std::string expre){if(expre){return 1;else{return 0;");
-// std::cout<<s1.indexError("void function(std::string expre){if(expre){return 1;else{return 0;")<<std::endl;
-// Queue q1;
-// q1.enqueue("This is a secure message.");
-// q1.processMsg();
-// q1.enqueue("The product I received is damaged. What should I do?");
-// q1.processMsg();
-// q1.enqueue("I need assistance with setting up my new device");
-// q1.processMsg();
-// q1.enqueue("The website is not loading properly on my browser.");
-// q1.processMsg();
-// q1.enqueue("I accidentally placed the wrong order. Can it be canceled?");
-// q1.processMsg();
-// q1.enqueue("This is your project3. Have a happy thanksgiving!!! Hahaha");
-// q1.processMsg();
-// q1.enqueue("I forgot my password and can't reset it. Help, please! Do you provide technical support for mobile devices?");
-// q1.processMsg();
-// q1.enqueue("The software update is causing issues on my computer. The response time on your website is very slow.");
-// q1.processMsg();
+Stack s1;
+s1.validPara("(([]))");
+s1.minPara("(([]))");
+s1.scorePara("(([]))");
+s1.validPara("(([])");
+std::cout<<s1.indexError("(([))")<<std::endl;
+s1.minPara("(([])");
+s1.validPara("(([{}))");
+std::cout<<s1.indexError("(([[}])")<<std::endl;
+s1.minPara("(([{}))");
+s1.scorePara("(([{}))");
+std::cout<<s1.indexError("({}[]()[)")<<std::endl;
+s1.validPara("(([))");
+s1.minPara("(([))");
+std::cout<<s1.indexError("[({)]")<<std::endl;
+s1.validPara("(([{[{({})}]}]))");
+s1.minPara("(([{[{({})}]}]))");
+s1.scorePara("(([{[{({})}]}]))");
+s1.validPara("(([[{[{({})}]))");
+s1.validPara("(([[{[{({})}]}])]))");
+s1.scorePara("(([[{[{({})}]}])]))");
+std::cout<<s1.indexError("(([[{{({})]}])]))")<<std::endl;
+s1.validPara("(())");
+s1.validPara("(())");
+s1.validPara("void function(){}");
+s1.scorePara("void function(){}");
+s1.validPara("void function(");
+s1.minPara("void function(");
+s1.validPara("void function(std::string expre){if(expre){return 1;}else{return 0;}}");
+s1.scorePara("void function(std::string expre){if(expre){return 1;}else{return 0;}}");
+s1.validPara("void function(std::string expre){if(expre){return 1;}else{return 0;}");
+s1.validPara("void function(std::string expre){if(expre){return 1;else{return 0;");
+s1.minPara("void function(std::string expre){if(expre){return 1;else{return 0;");
+std::cout<<s1.indexError("void function(std::string expre){if(expre){return 1;else{return 0;")<<std::endl;
+Queue q1;
+q1.enqueue("This is a secure message.");
+q1.processMsg();
+q1.enqueue("The product I received is damaged. What should I do?");
+q1.processMsg();
+q1.enqueue("I need assistance with setting up my new device");
+q1.processMsg();
+q1.enqueue("The website is not loading properly on my browser.");
+q1.processMsg();
+q1.enqueue("I accidentally placed the wrong order. Can it be canceled?");
+q1.processMsg();
+q1.enqueue("This is your project3. Have a happy thanksgiving!!! Hahaha");
+q1.processMsg();
+q1.enqueue("I forgot my password and can't reset it. Help, please! Do you provide technical support for mobile devices?");
+q1.processMsg();
+q1.enqueue("The software update is causing issues on my computer. The response time on your website is very slow.");
+q1.processMsg();
 return 0;
 }
